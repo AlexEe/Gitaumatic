@@ -1,0 +1,180 @@
+// // 	if Options.Login == "github" {
+// // 		username, password, token, team, address := GetGithubTokens()
+// // 		// Possibly prompt for which action one wants to take and select correct tokens e.g. create Repo
+// // 		GithubLogin(username, password, token, team, address)
+// // 	} else {
+// // 		// take out loop, write loginHandler func
+// // 		login := PromptInput()
+// // 		Options.Login = login
+// // 		Login()
+// // 	}
+// // 	if Options.Login == "artifactory" {}
+// // 	if Options.Login == "confluence" {}
+// // 	if Options.Login == "concourse" {}
+// // 	if Options.Login == "jira" {}
+// // }
+
+// //ParseFlags enables parsing with flags from Options struct
+// func ParseFlags() {
+// 	_, err := flags.Parse(&Options)
+// 	if err != nil {
+// 		log.Fatalln("Error occured while parsing flags:", err)
+// 	}
+// }
+
+// // PromptInput prompts the user to accept current value or provide a new one
+// func CheckInput() string {
+// 	inputs := map[string]bool{
+// 		"github":      true,
+// 		"artifactory": true,
+// 		"concourse":   true,
+// 		"confluence":  true,
+// 		"Github":      true,
+// 		"Artifactory": true,
+// 		"Concourse":   true,
+// 		"Confluence":  true,
+// 	}
+
+// 	reader := bufio.NewReader(os.Stdin)
+// 	input, _ := reader.ReadString("\n")
+// 	input = strings.TrimSuffix(input, "\n")
+
+// 	// Checks if input is in accepted inputs, otherwise, prompts User for input
+// 	_, ok := inputs[input]
+// 	if ok {
+// 		fmt.Printf("'%v' selected.\n", input)
+// 		return input
+// 	} else {
+// 		fmt.Print("Required value not entered.\n")
+// 		i := PromptInput()
+// 		return i
+// 	}
+// }
+
+// func PromptInput()
+// 	inputs := map[string]bool{
+// 		"github":      true,
+// 		"artifactory": true,
+// 		"concourse":   true,
+// 		"confluence":  true,
+// 		"Github":      true,
+// 		"Artifactory": true,
+// 		"Concourse":   true,
+// 		"Confluence":  true,
+// 	}
+// 	fmt.Print("Please specify which API you would like to log in to: ")
+// 	reader := bufio.NewReader(os.Stdin)
+// 	input, _ := reader.ReadString('\n')
+// 	input = strings.TrimSuffix(input, "\n")
+
+// 	_, ok := inputs[input]
+// 	if ok {
+// 		fmt.Printf("'%v' selected.\n", input)
+// 		return input
+// 	} else {
+// 		fmt.Print("Required value not entered.\n")
+// 		i := PromptInput()
+// 		return i
+// 	}
+// }
+
+// // PrintFlags prints out existing flags, short and long form
+// func PrintFlags() {
+// 	fmt.Println("Command line flags:")
+// 	fmt.Print("-l\t--login\tSelect API endpoint to log in to. E.g. '-l=github'.\n" +
+// 		"Options: github, artifactory, concourse, confluence")
+// }
+
+// func SelectLogin(input string) {
+
+// // GetGithubTokens logs into Github with admin priviledges and retrieves Personal Access
+// // Check how to pass in structs
+// func GetGithubTokens() (string, string, string, int64, string) {
+// 	cfg, err := ini.Load(".fake_vault")
+// 	if err != nil {
+// 		log.Fatalln("Failure retrieving tokens from Vault:", err)
+// 	}
+// 	username := cfg.Section("auth").Key("github_username").String()
+// 	password := cfg.Section("auth").Key("github_password").String()
+// 	token := cfg.Section("auth").Key("github_token").String()
+// 	teamID, _ := cfg.Section("auth").Key("github_team").Int64()
+// 	team := int64(teamID)
+
+// 	cfg, err = ini.Load(".omniactl")
+// 	if err != nil {
+// 		log.Fatalln("Failure retrieving API endpoint from .omniactl config file."+
+// 			"\nThis file can be created or updated using the './omniactl config' command.", err)
+// 	}
+// 	address := fmt.Sprint(cfg.Section("config").Key("github").String())
+
+// 	return username, password, token, team, address
+// }
+
+// // GithubLogin logs user in to Github and creates client
+// func GithubLogin(username string, password string, token string, team int64, address string) {
+
+// 	// create authenticated Github client
+// 	ctx := context.Background()
+// 	ts := oauth2.StaticTokenSource(
+// 		&oauth2.Token{AccessToken: token},
+// 	)
+// 	tc := oauth2.NewClient(ctx, ts)
+// 	client, err := github.NewEnterpriseClient(address, address, tc)
+// 	if err != nil {
+// 		log.Fatalln("Creation of Github client failed:", err)
+// 	}
+
+// 	_, resp, err := client.Users.Get(ctx, "")
+// 	if err != nil {
+// 		log.Fatalln("Github login failed:", err)
+// 	}
+
+// 	if resp.StatusCode == 200 {
+// 		fmt.Printf("Successfully logged into %v as user %v.\n", address, username)
+// 	}
+// }
+
+
+var Tokens struct {
+	ClientID     string `json:"client_id"`
+	ClientSecret string `json:"client_secret"`
+}
+
+// tokens := &Tokens{id, secret}
+// b, err := json.Marshall(tokens)
+
+// err = ioutil.WriteFile(".omniactl_auth", b, 0644)
+
+	// fmt.Println(resp.StatusCode)
+
+	// }
+	// fmt.Printf("\n%v\n", github.Stringify(user))
+
+	// // create -rn flag and import repo name entered in command line
+	// repoName := "newRepo"
+
+	// // define new repository
+	// repo := &github.Repository{
+	// 	Name:        github.String(repoName),
+	// 	Description: github.String(""),
+	// 	// true will create private repo, false public repo
+	// 	Private: github.Bool(false),
+	// 	// add ID of team that will be granted access to repo
+	// 	TeamID:           github.Int64(team),
+	// 	AllowRebaseMerge: github.Bool(true),
+	// 	AllowSquashMerge: github.Bool(true),
+	// 	AllowMergeCommit: github.Bool(true),
+	// }
+
+	// // create repo inside specific organization
+	// _, _, err = client.Repositories.Create(ctx, "MSF", repo)
+	// if err != nil {
+	// 	log.Fatalln("Error creating repository:\n", err)
+	// } else {
+	// 	fmt.Printf("Repository '%v' has been created.\n", repo.GetName())
+	// }
+	// // repos, _, err := client.Repositories.List(ctx, username, nil)
+	// // if err != nil {
+	// // 	log.Fatalln("Github login failed:", err)
+	// // }
+	// // fmt.Printf("User %v has successfully logged in. Current number of repos: %v", username, repos)

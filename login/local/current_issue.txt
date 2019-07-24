@@ -1,0 +1,18 @@
+1, Add omniactl login command
+This command should log into the authorization provider 
+(e.g. GItHub) and get an OAuth token for use by subsequent commands.  It should then write this token, with any necessary additional info, to a file e.g. ~/.omniactl-auth (or if the format is amenable, add it to the ~/omniactl ini file).  If there is an expiry, that should be recorded also.
+I'm assuming i understand how OAuth works, 
+so if this plan seems crazy once you look into it, we should revisit.
+
+Example with command prompt
+% omniactl login
+username: e650101
+password: **********
+Successfully logged in.  Your login with expire at 16:48:23Z Feb 28 2019.
+
+Example with flags
+% omniactl login --username e650101 --password clearpassword
+Login failed.
+
+
+2, Add help flag for config package
